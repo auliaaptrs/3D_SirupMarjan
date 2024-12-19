@@ -11,3 +11,6 @@
 
 ## Hasil WebGL
 ![alt text](data/HasilWebGL.png) 
+
+## Sumber Gambar Asli
+![alt text](data/WujudAsli.png) 
