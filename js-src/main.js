@@ -36,24 +36,29 @@ async function main() {
         shininess: 250,
         ambient: [1, 1, 1],
         defaultNormal: textures.defaultNormal,
+        opacity: 1.0
     },
-    "Material.002": {
-        diffuse: [0.8, 0.8, 0.8],
-        specular: [0.5, 0.5, 0.5],
+    "Material.002": {  // Kaca
+        diffuse: [0.9, 0.9, 0.9],
+        specular: [1.0, 1.0, 1.0],
         shininess: 360,
         defaultNormal: textures.defaultNormal,
+        opacity: 0.3,  // Transparan
+        refractive: true
     },
-    "Material.003": {
-        diffuse: [0.8, 0.8, 0.8],
-        specular: [0.5, 0.5, 0.5],
+    "Material.003": {  // Cairan
+        diffuse: [0.6, 0.0, 0.0], // Warna merah untuk sirup
+        specular: [0.7, 0.7, 0.7],
         shininess: 360,
         defaultNormal: textures.defaultNormal,
+        opacity: 0.8
     },
     isiHijau: {
-        diffuse: [0.8, 0.8, 0.8],
-        specular: [0.5, 0.5, 0.5],
+        diffuse: [0.0, 0.6, 0.0], // Warna hijau untuk varian lain
+        specular: [0.7, 0.7, 0.7],
         shininess: 360,
         defaultNormal: textures.defaultNormal,
+        opacity: 0.8
     },
     label: {
         diffuseMap: textures.label01,
@@ -109,8 +114,8 @@ async function main() {
     specularMap: textures.defaultWhite,
     shininess: 400,
     opacity: 1,
-  };
-
+    refractive: false
+};
   
 const parts = obj.geometries.map(({ material, data }) => {
   if (data.color) {
@@ -249,6 +254,9 @@ const parts = obj.geometries.map(({ material, data }) => {
     webglUtils.resizeCanvasToDisplaySize(gl.canvas);
     gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
     gl.enable(gl.DEPTH_TEST);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
+
 
     const fieldOfViewRadians = 60 * Math.PI / 180;
     const aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
